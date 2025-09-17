@@ -8,7 +8,7 @@ load_dotenv()
 OPENAI_API_KEY = "OPENAI_API_KEY"
 
 # 뉴스 API 설정 (NewsAPI 사용 예시)
-NEWS_API_KEY = os.getenv('NEWS_API_KEY', 'your_news_api_key_here')
+NEWS_API_KEY = os.getenv('NEWS_API_KEY', 'your_news_api_key')
 
 # 모델 설정
 MODEL_NAME = "gpt-5"
