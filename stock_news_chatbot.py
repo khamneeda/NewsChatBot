@@ -39,8 +39,8 @@ class StockNewsChatbot:
         self.importance_evaluator = ImportanceEvaluator()
         self.summarizer = NewsSummarizer()
         
-        print("🚀 주식 뉴스 챗봇이 초기화되었습니다!")
-        print(f"📊 사용 모델: {MODEL_NAME}")
+        print("주식 뉴스 챗봇이 초기화되었습니다!")
+        print(f"사용 모델: {MODEL_NAME}")
         print("=" * 50)
     
     def search_and_summarize(self, company: str) -> Dict:
@@ -53,7 +53,7 @@ class StockNewsChatbot:
         Returns:
             Dict: 검색 결과 및 요약 정보
         """
-        print(f"🔍 '{company}'에 대한 최근 뉴스를 검색 중...")
+        print(f"'{company}'에 대한 최근 뉴스를 검색 중...")
         
         try:
             # 1. 뉴스 검색
@@ -69,18 +69,18 @@ class StockNewsChatbot:
                     'overall_summary': ""
                 }
             
-            print(f"📰 총 {len(news_list)}개의 뉴스를 찾았습니다.")
+            print(f"총 {len(news_list)}개의 뉴스를 찾았습니다.")
             
             # 2. 중요도 평가
-            print("⚖️ 뉴스 중요도를 평가 중...")
+            print("뉴스 중요도를 평가 중...")
             evaluated_news = self.importance_evaluator.evaluate_news_importance(news_list)
             
             # 3. 뉴스 요약
-            print("📝 뉴스를 요약 중...")
+            print("뉴스를 요약 중...")
             summarized_news = self.summarizer.summarize_news(evaluated_news)
             
             # 4. 종합 요약 생성
-            print("🎯 종합 요약을 생성 중...")
+            print("종합 요약을 생성 중...")
             overall_summary = self.summarizer.generate_overall_summary(summarized_news)
             # print(f"DEBUG: 생성된 종합 요약: '{overall_summary}'")
             
@@ -93,11 +93,11 @@ class StockNewsChatbot:
                 'overall_summary': overall_summary
             }
             
-            print("✅ 분석이 완료되었습니다!")
+            print("분석이 완료되었습니다!")
             return result
             
         except Exception as e:
-            print(f"❌ 오류가 발생했습니다: {e}")
+            print(f"오류가 발생했습니다: {e}")
             return {
                 'company': company,
                 'search_time': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -115,36 +115,36 @@ class StockNewsChatbot:
             result (Dict): search_and_summarize의 결과
         """
         print("\n" + "=" * 60)
-        print(f"📊 {result['company']} 뉴스 분석 결과")
+        print(f"{result['company']} 뉴스 분석 결과")
         print("=" * 60)
-        print(f"🕐 검색 시간: {result['search_time']}")
-        print(f"📰 총 뉴스 수: {result['total_news']}개")
-        print(f"💬 {result['message']}")
+        print(f"검색 시간: {result['search_time']}")
+        print(f"총 뉴스 수: {result['total_news']}개")
+        print(f"{result['message']}")
         
         if result.get('overall_summary'):
-            print("\n🎯 종합 요약")
+            print("\n종합 요약")
             print("-" * 40)
             print(result['overall_summary'])
         else:
-            print("\n🎯 종합 요약")
+            print("\n종합 요약")
             print("-" * 40)
             print("종합 요약이 생성되지 않았습니다.")
         
         if result['news_list']:
-            print(f"\n📋 중요도 순 뉴스 목록 (상위 {min(10, len(result['news_list']))}개)")
+            print(f"\n중요도 순 뉴스 목록 (상위 {min(10, len(result['news_list']))}개)")
             print("-" * 40)
             
             for i, news in enumerate(result['news_list'][:10]):
                 print(f"\n{i+1}. {news.get('title', '제목 없음')}")
-                print(f"   📰 출처: {news.get('source', '알 수 없음')}")
-                print(f"   ⭐ 중요도: {news.get('final_score', 0):.2f}")
-                print(f"   📅 발행일: {news.get('published_at', '알 수 없음')}")
+                print(f"   출처: {news.get('source', '알 수 없음')}")
+                print(f"   중요도: {news.get('final_score', 0):.2f}")
+                print(f"   발행일: {news.get('published_at', '알 수 없음')}")
                 
                 if news.get('summary'):
-                    print(f"   📝 요약: {news.get('summary', '')}")
+                    print(f"   요약: {news.get('summary', '')}")
                 
                 if news.get('url'):
-                    print(f"   🔗 링크: {news.get('url', '')}")
+                    print(f"   링크: {news.get('url', '')}")
                 
                 print("-" * 40)
     
@@ -218,7 +218,7 @@ def main():
             chatbot.display_results(result)
         else:
             # config.py에서 설정된 기업명으로 분석
-            print(f"📊 설정된 기업명: {TARGET_COMPANY}")
+            print(f"설정된 기업명: {TARGET_COMPANY}")
             result = chatbot.search_and_summarize(TARGET_COMPANY)
             chatbot.display_results(result)
             
@@ -226,7 +226,7 @@ def main():
             # chatbot.interactive_mode()
             
     except Exception as e:
-        print(f"❌ 프로그램 실행 중 오류가 발생했습니다: {e}")
+        print(f"프로그램 실행 중 오류가 발생했습니다: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
